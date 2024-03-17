@@ -14,7 +14,20 @@
 
     foreach ( $jsonData['versions'] as $item ) {
         if ($item['id'] == $_GET['version']) {
-          echo "Version JSON: ".$item['url'];
+            echo "Version JSON: ".$item['url'];
+
+            $curlSessionB = curl_init();
+            curl_setopt($curlSessionB, CURLOPT_URL, $item['url']);
+            curl_setopt($curlSessionB, CURLOPT_BINARYTRANSFER, true);
+            curl_setopt($curlSessionB, CURLOPT_RETURNTRANSFER, true);
+
+            $jsonDataB = json_decode(curl_exec($curlSessionB));
+            curl_close($curlSessionB);
+
+            $itemB = $jsonDataB['downloads'];
+            if($_GET['action' == "getserverjar") { echo "Server JAR URL is: ".$itemB['server']['url'] }
+            
+            break;
         }
     }
 ?>
