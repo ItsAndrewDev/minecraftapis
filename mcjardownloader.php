@@ -10,8 +10,6 @@
 
     foreach ( $jsonData['versions'] as $item ) {
         if ($item['id'] == $_GET['version']) {
-            echo "Version JSON: ".$item['url']."<br>";
-
             $curlSessionB = curl_init();
             curl_setopt($curlSessionB, CURLOPT_URL, $item['url']);
             curl_setopt($curlSessionB, CURLOPT_BINARYTRANSFER, true);
