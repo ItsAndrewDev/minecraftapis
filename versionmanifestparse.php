@@ -1,7 +1,3 @@
-To Upload To GitHub
-ItsAndrewDev/minecraftapis
-
-versionmanifestparse.php
 <?php
     if ($_GET['version'] == "" || $_GET['action'] == "") { echo "Please pass 'version' and 'action' variables."; exit(); }
     $curlSession = curl_init();
