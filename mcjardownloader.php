@@ -20,6 +20,7 @@
 
             $itemB = $jsonDataB['downloads'];
             if($_GET['action' == "getserverjar") { echo $itemB['server']['url']; }
+            if($_GET['action' == "getclientjar") { echo $itemB['client']['url']; }
             
             break;
         }
