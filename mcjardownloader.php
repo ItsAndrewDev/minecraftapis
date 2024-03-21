@@ -1,26 +1,13 @@
 <?php
     if ($_GET['version'] == "" || $_GET['action'] == "") { echo "Please pass 'version' and 'action' variables."; exit(); }
-    $curlSession = curl_init();
-    curl_setopt($curlSession, CURLOPT_URL, 'https://launchermeta.mojang.com/mc/game/version_manifest.json');
-    curl_setopt($curlSession, CURLOPT_BINARYTRANSFER, true);
-    curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
-
-    $jsonData = json_decode(curl_exec($curlSession));
-    curl_close($curlSession);
+    $jsonData = json_decode(file_get_contents('https://launchermeta.mojang.com/mc/game/version_manifest.json'), true);
 
     foreach ( $jsonData['versions'] as $item ) {
         if ($item['id'] == $_GET['version']) {
-            $curlSessionB = curl_init();
-            curl_setopt($curlSessionB, CURLOPT_URL, $item['url']);
-            curl_setopt($curlSessionB, CURLOPT_BINARYTRANSFER, true);
-            curl_setopt($curlSessionB, CURLOPT_RETURNTRANSFER, true);
-
-            $jsonDataB = json_decode(curl_exec($curlSessionB));
-            curl_close($curlSessionB);
-
+            $jsonDataB = json_decode(file_get_contents($item['url']), true);
             $itemB = $jsonDataB['downloads'];
-            if($_GET['action' == "getserverjar") { echo $itemB['server']['url']; }
-            if($_GET['action' == "getclientjar") { echo $itemB['client']['url']; }
+            if($_GET['action'] == "getserverjar") { echo $itemB['server']['url']; }
+            if($_GET['action'] == "getclientjar") { echo $itemB['client']['url']; }
             
             break;
         }
